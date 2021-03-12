@@ -1,4 +1,4 @@
-package com.programminghero.mvvm_boilerplate.auth
+package com.programminghero.mvvm_boilerplate.ui.auth
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment
