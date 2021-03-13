@@ -1,4 +1,4 @@
-package com.programminghero.mvvm_boilerplate.responses
+package com.programminghero.mvvm_boilerplate.data.responses
 
 data class User(
     val access_token: String?,

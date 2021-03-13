@@ -1,6 +1,6 @@
-package com.programminghero.mvvm_boilerplate.network
+package com.programminghero.mvvm_boilerplate.data.network
 
-import com.programminghero.mvvm_boilerplate.responses.LoginResponse
+import com.programminghero.mvvm_boilerplate.data.responses.LoginResponse
 import retrofit2.http.Field
 import retrofit2.http.FormUrlEncoded
 import retrofit2.http.POST

@@ -1,6 +1,6 @@
-package com.programminghero.mvvm_boilerplate.repository
+package com.programminghero.mvvm_boilerplate.data.repository
 
-import com.programminghero.mvvm_boilerplate.network.AuthApi
+import com.programminghero.mvvm_boilerplate.data.network.AuthApi
 
 class AuthRepository(
     private val api: AuthApi

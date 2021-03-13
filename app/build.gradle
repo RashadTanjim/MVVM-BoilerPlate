@@ -38,7 +38,7 @@ android {
         targetCompatibility JavaVersion.VERSION_1_8
     }
     kotlinOptions {
-        jvmTarget = '1.8'
+        jvmTarget = JavaVersion.VERSION_1_8.toString()
     }
 }
 
@@ -70,8 +70,8 @@ dependencies {
     // ViewModel and LiveData
     implementation "androidx.lifecycle:lifecycle-extensions:2.2.0"
 
-    //    implementation "androidx.lifecycle:lifecycle-runtime-ktx:2.3.0-alpha07"
-//    implementation "androidx.lifecycle:lifecycle-livedata-ktx:2.3.0"
+    implementation "androidx.lifecycle:lifecycle-runtime-ktx:2.3.0"
+    implementation "androidx.lifecycle:lifecycle-livedata-ktx:2.3.0"
 
     //New Material Design
     implementation 'com.google.android.material:material:1.4.0-alpha01'
@@ -83,10 +83,8 @@ dependencies {
     implementation "androidx.navigation:navigation-ui-ktx:$nav_version"
 
 
-
     // Preference
-    implementation "androidx.preference:preference-ktx:$preference_version"
-//    implementation "androidx.datastore:datastore-preferences:1.0.0-alpha07"
-
+//    implementation "androidx.preference:preference-ktx:$preference_version"
+    implementation "androidx.datastore:datastore-preferences:1.0.0-alpha01"
 
 }

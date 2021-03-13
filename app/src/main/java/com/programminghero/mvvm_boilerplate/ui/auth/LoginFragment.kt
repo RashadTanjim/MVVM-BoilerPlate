@@ -1,18 +1,17 @@
 package com.programminghero.mvvm_boilerplate.ui.auth
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.lifecycle.Observer
-import com.programminghero.mvvm_boilerplate.R
+import androidx.lifecycle.lifecycleScope
 import com.programminghero.mvvm_boilerplate.databinding.FragmentLoginBinding
-import com.programminghero.mvvm_boilerplate.network.AuthApi
-import com.programminghero.mvvm_boilerplate.network.Resource
-import com.programminghero.mvvm_boilerplate.repository.AuthRepository
+import com.programminghero.mvvm_boilerplate.data.network.AuthApi
+import com.programminghero.mvvm_boilerplate.data.network.Resource
+import com.programminghero.mvvm_boilerplate.data.repository.AuthRepository
 import com.programminghero.mvvm_boilerplate.ui.base.BaseFragment
+import kotlinx.coroutines.launch
 
 
 class LoginFragment : BaseFragment<AuthViewModel, FragmentLoginBinding, AuthRepository>() {
@@ -23,7 +22,9 @@ class LoginFragment : BaseFragment<AuthViewModel, FragmentLoginBinding, AuthRepo
         viewModel.loginResponse.observe(viewLifecycleOwner, Observer {
             when (it) {
                 is Resource.Success -> {
-                    Toast.makeText(requireContext(), it.toString(), Toast.LENGTH_SHORT).show()
+                    lifecycleScope.launch {
+                        userPreferences.saveAuthToken(it.value.user.access_token.toString())  //TODO .toString should be removed
+                    }
                 }
                 is Resource.Failure -> {
                     Toast.makeText(requireContext(), it.toString(), Toast.LENGTH_SHORT).show()
