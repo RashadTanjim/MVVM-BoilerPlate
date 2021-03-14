@@ -22,7 +22,8 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name="com.programminghero.mvvm_boilerplate.ui.auth.AuthActivity"/>
+        <activity android:name=".ui.auth.AuthActivity"/>
+        <activity android:name=".ui.home.HomeActivity" />
     </application>
 
 </manifest>
