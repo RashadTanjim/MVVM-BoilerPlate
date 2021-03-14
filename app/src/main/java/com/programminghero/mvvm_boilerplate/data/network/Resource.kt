@@ -1,4 +1,4 @@
-package com.programminghero.mvvm_boilerplate.network
+package com.programminghero.mvvm_boilerplate.data.network
 
 import okhttp3.ResponseBody
 

@@ -2,8 +2,8 @@ package com.programminghero.mvvm_boilerplate.ui.base
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
-import com.programminghero.mvvm_boilerplate.repository.AuthRepository
-import com.programminghero.mvvm_boilerplate.repository.BaseRepository
+import com.programminghero.mvvm_boilerplate.data.repository.AuthRepository
+import com.programminghero.mvvm_boilerplate.data.repository.BaseRepository
 import com.programminghero.mvvm_boilerplate.ui.auth.AuthViewModel
 import java.lang.IllegalArgumentException
 

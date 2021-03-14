@@ -1,11 +1,10 @@
-package com.programminghero.mvvm_boilerplate.network
+package com.programminghero.mvvm_boilerplate.data.network
 
 import com.programminghero.mvvm_boilerplate.BuildConfig
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
-import retrofit2.create
 
 class RemoteDataSource {
     companion object {

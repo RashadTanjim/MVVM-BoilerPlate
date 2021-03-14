@@ -1,6 +1,6 @@
-package com.programminghero.mvvm_boilerplate.repository
+package com.programminghero.mvvm_boilerplate.data.repository
 
-import com.programminghero.mvvm_boilerplate.network.Resource
+import com.programminghero.mvvm_boilerplate.data.network.Resource
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import retrofit2.HttpException
