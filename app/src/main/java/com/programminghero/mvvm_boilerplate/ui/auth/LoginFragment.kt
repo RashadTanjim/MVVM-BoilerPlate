@@ -13,6 +13,7 @@ import com.programminghero.mvvm_boilerplate.data.network.Resource
 import com.programminghero.mvvm_boilerplate.data.repository.AuthRepository
 import com.programminghero.mvvm_boilerplate.ui.base.BaseFragment
 import com.programminghero.mvvm_boilerplate.ui.enable
+import com.programminghero.mvvm_boilerplate.ui.handleApiError
 import com.programminghero.mvvm_boilerplate.ui.home.HomeActivity
 import com.programminghero.mvvm_boilerplate.ui.startNewActivity
 import com.programminghero.mvvm_boilerplate.ui.visible
@@ -28,15 +29,15 @@ class LoginFragment : BaseFragment<AuthViewModel, FragmentLoginBinding, AuthRepo
         binding.buttonLogin.enable(false)
 
         viewModel.loginResponse.observe(viewLifecycleOwner, Observer {
-            binding.progressbar.visible(false)
+            binding.progressbar.visible(it is Resource.Loading)
             when (it) {
                 is Resource.Success -> {
-                        viewModel.saveAuthToken(it.value.user.access_token.toString())  //TODO .toString should be removed
+                    lifecycleScope.launch {
+                        viewModel.saveAuthToken(it.value.user.access_token!!)  //TODO .toString should be removed
                         requireActivity().startNewActivity(HomeActivity::class.java)
+                    }
                 }
-                is Resource.Failure -> {
-                    Toast.makeText(requireContext(), "Login Failure", Toast.LENGTH_SHORT).show()
-                }
+                is Resource.Failure -> handleApiError(it)
             }
         })
 
@@ -45,12 +46,11 @@ class LoginFragment : BaseFragment<AuthViewModel, FragmentLoginBinding, AuthRepo
             binding.buttonLogin.enable(email.isNotEmpty() && it.toString().isNotEmpty())
         }
 
-        binding.buttonLogin.setOnClickListener{
+        binding.buttonLogin.setOnClickListener {
             val email = binding.editTextTextEmailAddress.text.toString().trim()
             val password = binding.editTextTextPassword.text.toString().trim()
 
             //@TODO ADD input validations
-            binding.progressbar.visible(true)
             viewModel.login(email, password)
         }
 
@@ -61,7 +61,8 @@ class LoginFragment : BaseFragment<AuthViewModel, FragmentLoginBinding, AuthRepo
     override fun getFragmentBinding(
         inflater: LayoutInflater,
         container: ViewGroup?
-    ) =  FragmentLoginBinding.inflate(inflater, container, false)
+    ) = FragmentLoginBinding.inflate(inflater, container, false)
 
-    override fun getFragmentRepository() = AuthRepository(remoteDataSource.buildApi(AuthApi::class.java), userPreferences)
+    override fun getFragmentRepository() =
+        AuthRepository(remoteDataSource.buildApi(AuthApi::class.java), userPreferences)
 }
