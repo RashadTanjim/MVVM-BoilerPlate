@@ -11,11 +11,14 @@ import androidx.lifecycle.lifecycleScope
 import androidx.viewbinding.ViewBinding
 import com.programminghero.mvvm_boilerplate.data.UserPreferences
 import com.programminghero.mvvm_boilerplate.data.network.RemoteDataSource
+import com.programminghero.mvvm_boilerplate.data.network.UserApi
 import com.programminghero.mvvm_boilerplate.data.repository.BaseRepository
+import com.programminghero.mvvm_boilerplate.ui.auth.AuthActivity
+import com.programminghero.mvvm_boilerplate.ui.startNewActivity
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.launch
 
-abstract class BaseFragment<VM : ViewModel, B : ViewBinding, R : BaseRepository> : Fragment() {
+abstract class BaseFragment<VM : BaseViewModel, B : ViewBinding, R : BaseRepository> : Fragment() {
 
     protected lateinit var userPreferences: UserPreferences
     protected lateinit var binding: B
@@ -23,9 +26,9 @@ abstract class BaseFragment<VM : ViewModel, B : ViewBinding, R : BaseRepository>
     protected val remoteDataSource = RemoteDataSource()
 
     override fun onCreateView(
-            inflater: LayoutInflater,
-            container: ViewGroup?,
-            savedInstanceState: Bundle?
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
     ): View? {
         userPreferences = UserPreferences(requireContext())
         binding = getFragmentBinding(inflater, container)
@@ -33,6 +36,14 @@ abstract class BaseFragment<VM : ViewModel, B : ViewBinding, R : BaseRepository>
         viewModel = ViewModelProvider(this, factory).get(getViewModel())
         lifecycleScope.launch { userPreferences.authToken.first() }
         return binding.root
+    }
+
+    fun logout() = lifecycleScope.launch {
+        val authToken = userPreferences.authToken.first()
+        val api = remoteDataSource.buildApi(UserApi::class.java, authToken)
+        viewModel.logout(api)
+        userPreferences.clear()
+        requireActivity().startNewActivity(AuthActivity::class.java)
     }
 
     abstract fun getViewModel(): Class<VM>

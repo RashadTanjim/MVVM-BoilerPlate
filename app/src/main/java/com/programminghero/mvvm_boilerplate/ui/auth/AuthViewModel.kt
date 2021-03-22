@@ -7,11 +7,12 @@ import androidx.lifecycle.viewModelScope
 import com.programminghero.mvvm_boilerplate.data.network.Resource
 import com.programminghero.mvvm_boilerplate.data.repository.AuthRepository
 import com.programminghero.mvvm_boilerplate.data.responses.LoginResponse
+import com.programminghero.mvvm_boilerplate.ui.base.BaseViewModel
 import kotlinx.coroutines.launch
 
 class AuthViewModel(
     private val repository: AuthRepository
-) : ViewModel() {
+) : BaseViewModel(repository) {
 
     private val _loginResponse: MutableLiveData<Resource<LoginResponse>> = MutableLiveData()
     val loginResponse: LiveData<Resource<LoginResponse>>

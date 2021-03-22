@@ -36,6 +36,10 @@ class HomeFragment : BaseFragment<HomeViewModel, FragmentHomeBinding, UserReposi
                 }
             }
         })
+
+        binding.buttonLogout.setOnClickListener {
+            logout()
+        }
     }
 
     private fun updateUI(user: User) {
@@ -46,8 +50,8 @@ class HomeFragment : BaseFragment<HomeViewModel, FragmentHomeBinding, UserReposi
     override fun getViewModel() = HomeViewModel::class.java
 
     override fun getFragmentBinding(
-            inflater: LayoutInflater,
-            container: ViewGroup?
+        inflater: LayoutInflater,
+        container: ViewGroup?
     ) = FragmentHomeBinding.inflate(inflater, container, false)
 
 
