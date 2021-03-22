@@ -1,6 +1,7 @@
 package com.programminghero.mvvm_boilerplate.data.repository
 
 import com.programminghero.mvvm_boilerplate.data.network.Resource
+import com.programminghero.mvvm_boilerplate.data.network.UserApi
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import retrofit2.HttpException
@@ -24,5 +25,9 @@ abstract class BaseRepository {
                 }
             }
         }
+    }
+
+    suspend fun logout(api: UserApi) = safeApiCall {
+        api.logout()
     }
 }
